@@ -66,7 +66,7 @@ const part4Questions = [
   {
     id: "p4_q7",
     type: "multiple-choice",
-    question: "Identify the resource ID in the following URL: https://integrator.io/integrations/652835eb123c6d2a15412cb4/flowBuilder/987835f12345040ecbfd0d76?app=http",
+    question: "Identify the resource ID in the following URL:",
     options: ["integrations", "652835eb123c6d2a15412cb4", "flowBuilder", "987835f12345040ecbfd0d76"],
     image: "images/p4_q7.png",
     correctAnswer: "987835f12345040ecbfd0d76",
@@ -517,3 +517,4 @@ const part4Questions = [
 
 // Export or expose the array if needed elsewhere
 // module.exports = { part4Questions };
+
