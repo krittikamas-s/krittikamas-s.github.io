@@ -240,26 +240,44 @@ h2#question-text {
 
     .palette-container {
         width: 100%; 
+        /* Safari Fix: Use opacity and visibility alongside max-height */
         max-height: 0; 
+        opacity: 0;
+        visibility: hidden;
         padding: 0; 
         overflow: hidden;
-        transition: max-height 0.3s ease-in-out; 
+        /* Force Hardware Acceleration for smoother iOS transitions */
+        transform: translateZ(0); 
+        transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+                    opacity 0.3s ease, 
+                    padding 0.3s ease;
         background-color: #f8f9fa;
         order: 1; 
     }
 
     .palette-container.open { 
+        /* Use 50vh or a large fixed pixel value for Safari stability */
         max-height: 50vh; 
-        padding: 0 1rem 1rem 1rem; 
+        opacity: 1;
+        visibility: visible;
+        padding: 1rem; 
         overflow-y: auto; 
         border-bottom: 2px solid #ddd;
+        /* Prevent elastic bouncing from hiding the toggle on iOS */
+        -webkit-overflow-scrolling: touch; 
     }
 
+    /* Beautiful Nav Buttons Fix for Safari */
     .nav-buttons {
+        display: flex !important; /* Force flex for Safari */
+        flex-direction: row !important;
+        width: 100%;
+        gap: 10px;
         padding: 15px;
         background: white;
         box-shadow: 0 -5px 15px rgba(0,0,0,0.05);
     }
+
 }
 
 .hidden { display: none !important; }
