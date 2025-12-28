@@ -79,9 +79,17 @@
                     <h3 id="feedback-title"></h3>
                     <p id="feedback-text"></p>
                 </div>
-                <div class="nav-buttons">
+                <!-- <div class="nav-buttons">
                     <button id="back-btn" class="secondary-btn" disabled>Previous</button>
                     <button id="next-btn" class="primary-btn">Next Question ➝</button>
+                </div> -->
+                <div class="nav-buttons">
+                    <button id="back-btn" class="secondary-btn" disabled>
+                        <span>←</span> Previous
+                    </button>
+                    <button id="next-btn" class="primary-btn">
+                        Next Question <span>→</span>
+                    </button>
                 </div>
             </div>
 
@@ -129,24 +137,30 @@
         const feedbackTitle = document.getElementById('feedback-title');
         const feedbackText = document.getElementById('feedback-text');
         // Mobile Map Toggle Logic
+        // Replace your mobile map toggle logic in index.html with this:
         const mapToggle = document.getElementById('mobile-map-toggle');
         const paletteDrawer = document.getElementById('palette-drawer');
         const mapArrow = document.getElementById('map-arrow');
 
         if (mapToggle) {
             mapToggle.addEventListener('click', (e) => {
-                // Prevent Safari ghost clicks
                 e.preventDefault();
-
                 const isOpen = paletteDrawer.classList.toggle('open');
-
-                // Update arrow icon
                 mapArrow.textContent = isOpen ? '▲' : '▼';
 
-                // Safari Draw Fix: Force layout recalculation
-                paletteDrawer.style.display = 'none';
-                paletteDrawer.offsetHeight; // Trigger reflow
-                paletteDrawer.style.display = 'block';
+                // Safari Reflow Fix: Ensures layout updates immediately on iPhone 16 Pro
+                if (isOpen) {
+                    paletteDrawer.style.display = 'block';
+                    paletteDrawer.style.visibility = 'visible';
+                    paletteDrawer.style.opacity = '1';
+                } else {
+                    // Delay visibility hidden for smoothness
+                    setTimeout(() => {
+                        if (!paletteDrawer.classList.contains('open')) {
+                            paletteDrawer.style.visibility = 'hidden';
+                        }
+                    }, 400);
+                }
             });
         }
 

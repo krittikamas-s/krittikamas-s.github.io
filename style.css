@@ -1,6 +1,6 @@
 /* --- GLOBAL RESET & BOX-SIZING --- */
 * {
-    box-sizing: border-box; /* Ensures padding doesn't cause overflow */
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
@@ -14,26 +14,26 @@
     --success: #2ecc71;
     --error: #e74c3c;
     --gray-btn: #95a5a6;
-    --sidebar-width: 320px;
-    --font-size-h2: clamp(1rem, 4vw, 1.25rem);
-    --font-size-body: clamp(0.85rem, 3.5vw, 1rem);
+    --sidebar-width: 350px;
 }
 
 body {
     font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     background-color: var(--light-bg);
     min-height: 100vh;
-    line-height: 1.5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /* --- Main Container --- */
 .quiz-container {
     background: white;
     width: 98%;
-    max-width: 1200px;
+    max-width: 1300px;
     margin: 10px auto;
-    border-radius: 10px;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -44,50 +44,50 @@ body {
 .header {
     background-color: var(--primary-blue);
     color: white;
-    padding: 1rem 1.5rem;
+    padding: 1.2rem 1.5rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-shrink: 0;
 }
 
-.header h1 { font-size: 1.2rem; margin: 0; font-weight: 600; }
-.header-info { text-align: right; font-size: 0.9rem; }
-.score-badge { font-weight: bold; background: rgba(255,255,255,0.2); padding: 2px 8px; border-radius: 4px; margin-top: 5px; display: inline-block;}
+.header h1 { font-size: 1.3rem; margin: 0; font-weight: 700; }
+.score-badge { font-weight: bold; background: rgba(255,255,255,0.2); padding: 5px 12px; border-radius: 6px; }
 
-/* --- Desktop Layout Fixes --- */
+/* --- Desktop Layout --- */
 #quiz-box-palete-container {
     display: flex;
-    flex-direction: row; /* Horizontal for desktop */
-    height: calc(100vh - 160px);
+    flex-direction: row;
+    height: calc(100vh - 120px);
     overflow: hidden;
     width: 100%;
 }
 
 #quiz-box {
     flex: 1;
-    padding: 2rem;
+    padding: 2rem 2.5rem;
     overflow-y: auto;
-    border-right: 1px solid #ddd;
+    border-right: 1px solid #eee;
+    display: flex;
+    flex-direction: column;
 }
 
-/* --- Palette Sidebar (Desktop) --- */
 .palette-container {
     width: var(--sidebar-width);
     flex-shrink: 0;
     background-color: #f8f9fa;
     padding: 1.5rem;
     overflow-y: auto;
-    /* Reset mobile drawer properties for desktop */
     max-height: none !important;
     opacity: 1 !important;
     visibility: visible !important;
 }
 
-/* --- Typography & Elements --- */
+/* --- RESTORED QUESTION & OPTION STYLES --- */
 h2#question-text {
     color: var(--primary-blue);
     margin-top: 0;
-    font-size: var(--font-size-h2);
+    font-size: 1.25rem;
     margin-bottom: 20px;
 }
 
@@ -100,29 +100,6 @@ h2#question-text {
     padding-left: 10px;
 }
 
-/* --- Buttons & Inputs --- */
-.primary-btn {
-    background-color: var(--accent-orange);
-    color: white;
-    border: none;
-    padding: 12px 20px;
-    border-radius: 6px;
-    font-weight: bold;
-    cursor: pointer;
-}
-.primary-btn:hover { background-color: var(--orange-hover); }
-
-.secondary-btn {
-    background-color: var(--gray-btn);
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 6px;
-    font-weight: bold;
-    cursor: pointer;
-}
-.secondary-btn:disabled { background-color: #e0e0e0; cursor: not-allowed; }
-
 .option-btn {
     background: white;
     border: 2px solid #ddd;
@@ -132,8 +109,11 @@ h2#question-text {
     cursor: pointer;
     margin-bottom: 10px;
     width: 100%;
-    font-size: var(--font-size-body);
+    font-size: 1rem;
+    transition: all 0.2s;
 }
+.option-btn:hover { border-color: var(--primary-blue); background-color: #f0f4ff; }
+.option-btn.selected { background-color: var(--primary-blue); color: white; border-color: var(--primary-blue); }
 
 .checkbox-label {
     display: flex;
@@ -144,8 +124,11 @@ h2#question-text {
     border-radius: 8px;
     cursor: pointer;
     margin-bottom: 10px;
-    font-size: var(--font-size-body);
+    font-size: 1rem;
 }
+.checkbox-label input { width: 18px; height: 18px; margin-right: 12px; }
+.checkbox-label.correct-choice { border-color: var(--success); background-color: #eafaf1; }
+.checkbox-label.wrong-choice { border-color: var(--error); background-color: #fdedec; }
 
 .matching-row {
     display: flex;
@@ -157,26 +140,12 @@ h2#question-text {
     border-radius: 6px;
     margin-bottom: 10px;
 }
-.matching-item-text { width: 45%; font-weight: 500; font-size: var(--font-size-body); }
-.matching-select { width: 50%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: var(--font-size-body); }
+.matching-item-text { width: 45%; font-weight: 500; }
+.matching-select { width: 50%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
+.matching-row.correct { border: 2px solid var(--success); background: #eafaf1; }
+.matching-row.incorrect { border: 2px solid var(--error); background: #fdedec; }
 
-/* --- Question Map Palette --- */
-.palette-grid { 
-    display: grid; 
-    grid-template-columns: repeat(auto-fill, minmax(45px, 1fr)); 
-    gap: 8px; 
-    justify-items: center;
-}
-
-.palette-btn {
-    width: 42px; height: 42px; border: none; border-radius: 4px;
-    background-color: #e0e0e0; color: #555; font-weight: bold; cursor: pointer;
-    font-size: 0.8rem;
-}
-.palette-btn.current { border: 2px solid var(--primary-blue); box-shadow: 0 0 5px var(--primary-blue); }
-.palette-btn.correct { background-color: var(--success); color: white; }
-.palette-btn.incorrect { background-color: var(--error); color: white; }
-
+/* --- BEAUTIFUL NAV BUTTONS --- */
 /* --- BEAUTIFUL NAV BUTTONS --- */
 .nav-buttons {
     display: flex;
@@ -204,79 +173,74 @@ h2#question-text {
     box-shadow: 0 4px 6px rgba(0,0,0,0.05);
 }
 
-/* Ensure the toggle is STERNLY hidden on desktop */
-#mobile-map-toggle { 
-    display: none !important; 
-}
+#back-btn { background-color: #ffffff; color: #495057; border: 1px solid #dee2e6; }
+#back-btn:hover:not(:disabled) { border-color: var(--primary-blue); transform: translateX(-5px); }
+
+#next-btn { background: linear-gradient(135deg, var(--accent-orange), #f39c12); color: white; }
+#next-btn:hover { filter: brightness(1.1); transform: translateX(5px); box-shadow: 0 8px 20px rgba(230, 126, 34, 0.3); }
+
+button:disabled { opacity: 0.3; cursor: not-allowed; transform: none !important; }
+
+/* --- Mobile Specific Fixes --- */
+#mobile-map-toggle { display: none !important; }
 
 @media (max-width: 768px) {
-    
-    .quiz-container { 
-        width: 100%; 
-        margin: 0; 
-        border-radius: 0; 
-        height: 100vh; 
-        max-height: 100vh;
-    }
-
-    #quiz-box-palete-container { 
-        flex-direction: column; /* Stack for mobile */
-        height: calc(100vh - 70px); 
-    }
+    .quiz-container { height: 100vh; max-height: 100vh; width: 100%; margin: 0; border-radius: 0; }
+    #quiz-box-palete-container { flex-direction: column; height: calc(100vh - 70px); }
+    #quiz-box { padding: 1.2rem; order: 2; flex: 1; border-right: none; }
 
     #mobile-map-toggle {
-        display: flex !important; /* Show only on mobile */
+        display: flex !important;
         justify-content: space-between;
         align-items: center;
         width: 100%;
-        padding: 12px 20px;
+        padding: 15px 20px;
         background-color: #ffffff;
         color: var(--primary-blue);
-        border-bottom: 2px solid #ddd;
-        cursor: pointer; /* Safari click trigger */
+        border-bottom: 2px solid #eee;
+        order: 1;
         z-index: 100;
+        font-weight: 700;
     }
 
     .palette-container {
         width: 100%;
-        max-height: 0; /* Collapsed */
-        padding: 0;
-        opacity: 0;
-        visibility: hidden; /* Safari Fix */
+        max-height: 0 !important;
+        padding: 0 !important;
+        opacity: 0 !important;
+        visibility: hidden !important;
         overflow: hidden;
         transition: max-height 0.4s ease, opacity 0.3s ease;
         background-color: #f8f9fa;
-        order: 1; /* Appears below toggle, above question */
+        order: 1;
     }
 
-    /* Use a specific class to "stick" them together and open */
     .palette-container.open { 
-        max-height: 50vh; 
-        opacity: 1;
-        visibility: visible;
-        padding: 1rem;
+        max-height: 50vh !important; 
+        opacity: 1 !important;
+        visibility: visible !important;
+        padding: 1rem !important;
         overflow-y: auto;
         border-bottom: 2px solid #ddd;
-        -webkit-overflow-scrolling: touch; /* Smooth iOS scroll */
     }
 
-    #quiz-box { 
-        order: 2; /* Question box below the map */
-        padding: 1rem;
-    }
-
-    /* Beautiful Nav Buttons Fix for Safari */
-    .nav-buttons {
-        display: flex !important; /* Force flex for Safari */
-        flex-direction: row !important;
-        width: 100%;
-        gap: 10px;
-        padding: 15px;
-        background: white;
-        box-shadow: 0 -5px 15px rgba(0,0,0,0.05);
-    }
-
+    .nav-buttons { padding: 15px; background: white; box-shadow: 0 -5px 15px rgba(0,0,0,0.05); margin-top: 10px; }
+    .nav-buttons button { max-width: none; }
 }
+
+/* --- Question Map Palette --- */
+.palette-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(44px, 1fr)); gap: 10px; }
+.palette-btn { width: 44px; height: 44px; border: none; border-radius: 8px; background-color: #e9ecef; font-weight: 600; cursor: pointer; }
+.palette-btn.current { border: 3px solid var(--primary-blue); background: white; transform: scale(1.05); }
+.palette-btn.correct { background-color: var(--success); color: white; }
+.palette-btn.incorrect { background-color: var(--error); color: white; }
+
+/* --- Feedback Area --- */
+#feedback-area { margin-top: 20px; padding: 15px; border-radius: 8px; border-left: 5px solid #ccc; }
+#feedback-area.correct { background-color: #eafaf1; border-left-color: var(--success); }
+#feedback-area.incorrect { background-color: #fdedec; border-left-color: var(--error); }
 
 .hidden { display: none !important; }
 #question-image { display: block; max-width: 100%; height: auto; margin: 0 auto 20px; border-radius: 8px; }
+.primary-btn { background-color: var(--accent-orange); color: white; border: none; padding: 10px 20px; border-radius: 6px; font-weight: bold; }
+.primary-btn:hover { background-color: var(--orange-hover); }
