@@ -2,7 +2,8 @@
 1. Open [krittikamas-s.gitgub.io](krittikamas-s.gitgub.io) to run the application
 2. Toggle the ```Toggle Question Map``` to display ```Export/Import progress``` options to manage you progress!
 
-REMINDER
+
+### REMINDER ###
 - Before importing any exported current progress file please check the version of applicaiton in your exported file!
   ```
   {
