@@ -7,11 +7,11 @@
 - Before importing any exported current progress file please check the version of applicaiton in your exported file!
   ```
   {
-  "appVersion": "2.0.0",
+  "appVersion": "2.1.0",
   "history": {},
   "score": 10,
   "currentIndex": 26,
   "exportDate": "2025-12-28T15:37:10.914Z",
-  "totalQuestions": 737
+  "totalQuestions": 741
   }
   ```
