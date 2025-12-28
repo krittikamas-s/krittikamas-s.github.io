@@ -11,11 +11,42 @@ class QuizManager {
         if(typeof part8Questions !== 'undefined') this.allQuestions.push(...part8Questions);
         if(typeof part9Questions !== 'undefined') this.allQuestions.push(...part9Questions);
 
+        this.prepareQuestions();
+
         this.currentQuestionIndex = 0;
         this.score = 0;
         this.history = {}; 
     }
 
+    // Helper function for Fisher-Yates Shuffle
+    shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
+    }
+
+    prepareQuestions() {
+        // Optional: Shuffle the order of the questions themselves
+        // this.shuffleArray(this.allQuestions);
+
+        this.allQuestions.forEach(q => {
+            // 1. Shuffle standard Multiple Choice and Multiple Select options
+            if (q.options && Array.isArray(q.options) && q.type !== 'matching') {
+                this.shuffleArray(q.options);
+            }
+
+            // 2. Shuffle Matching question components
+            if (q.type === 'matching') {
+                // Shuffle the rows (the items on the left)
+                if (q.rows) this.shuffleArray(q.rows);
+                // Shuffle the options (the items in the dropdowns)
+                if (q.options) this.shuffleArray(q.options);
+            }
+        });
+    }
+    
     getCurrentQuestion() {
         return this.allQuestions[this.currentQuestionIndex];
     }
