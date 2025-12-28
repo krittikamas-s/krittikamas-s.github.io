@@ -240,6 +240,7 @@ const part2Questions = [
     type: "multiple-choice",
     question: "What is the error source? (Image reference: error related to application)",
     options: ["Shopify", "BigCommerce", "Code", "404"],
+    image: "images/p2_q23.png",
     correctAnswer: "BigCommerce",
     explanation: "The error originates from BigCommerce application.",
     chapter: ["Level 2 - Exploring Flow Builder|Error Management"]
